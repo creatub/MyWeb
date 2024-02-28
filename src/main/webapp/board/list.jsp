@@ -4,7 +4,7 @@
 <jsp:include page="/inc/top.jsp" />
 		<!-- content -->
 		<div class="container">
-			<h1>Index Page</h1>
+			<h1>Board List Page</h1>
 		</div>
 
 <jsp:include page="/inc/foot.jsp" />

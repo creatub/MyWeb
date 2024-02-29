@@ -1,6 +1,15 @@
 package member.model;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import common.db.DBUtil;
 //DAO (Data Access Object) : Database에 접근하여 CRUD로직을 수행하는 객체
 //==> Data Layer (Persistence Layer) ==> Model에 해당
@@ -9,11 +18,24 @@ public class MemberDAO {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
+	private DataSource ds;
+	
+	public MemberDAO() {
+		try {
+			Context ctx = new InitialContext();
+			ds=(DataSource) ctx.lookup("java:comp/env/jdbc/myoracle");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/** 회원가입 처리 - CRUD 중 C(INSERT) */
 	public int insertMember(MemberVO user) throws SQLException {
 		// try catch로 하면 화면에 Exception 보여주기 어려움 -> console에만 출력 가능
 		try {
-			con=DBUtil.getCon();
+//			con=DBUtil.getCon();
+			con=ds.getConnection();
 			String sql = "INSERT INTO JAVA_MEMBER(ID,NAME,PW,TEL,INDATE)";
 				   sql+= " VALUES(?,?,?,?,SYSDATE)";
 			ps = con.prepareStatement(sql);
@@ -32,7 +54,8 @@ public class MemberDAO {
 	public int updateMember(MemberVO user) throws SQLException {
 		// try catch로 하면 화면에 Exception 보여주기 어려움 -> console에만 출력 가능
 		try {
-			con=DBUtil.getCon();
+//			con=DBUtil.getCon();
+			con=ds.getConnection();
 			String sql = "UPDATE JAVA_MEMBER SET name=?, tel=?, pw=? WHERE id = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, user.getName());
@@ -49,7 +72,8 @@ public class MemberDAO {
 	/**회원 목록 가져오기 - R (SELECT) => 다중행을 반환하는 경우*/
 	public ArrayList<MemberVO> selectAll() throws SQLException{
 		try {
-			con=DBUtil.getCon();
+//			con=DBUtil.getCon();
+			con=ds.getConnection();
 			String sql = "SELECT * FROM java_member ORDER BY indate DESC";
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
@@ -75,7 +99,8 @@ public class MemberDAO {
 	/**PK- id로 회원정보 가져오기 - R(SELECT) => 단일행을 반환하는 경우*/
 	public MemberVO findById(String id) throws SQLException{
 		try {
-			con=DBUtil.getCon();
+//			con=DBUtil.getCon();
+			con=ds.getConnection();
 			String sql = "SELECT * FROM java_member WHERE id=?";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, id);
@@ -106,7 +131,8 @@ public class MemberDAO {
 	/**회원 탈퇴 처리 - D(DELETE)*/
 	public int deleteMember(String id) throws SQLException{
 		try {
-			con=DBUtil.getCon();
+//			con=DBUtil.getCon();
+			con=ds.getConnection();
 			//delete문 작성
 			String sql ="DELETE FROM JAVA_MEMBER WHERE ID = ?";
 			//ps 얻기

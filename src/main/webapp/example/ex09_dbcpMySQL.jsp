@@ -3,13 +3,13 @@
 <jsp:include page="/inc/top.jsp" />
 
 <div class ="container">
-	<h1>DBCP Test - MyOracle</h1>
+	<h1>DBCP Test - MySQL</h1>
 <%
 	//JNDI : Java Naming and Directory Interface
 	//DBUtil.getCon()을 대체!!
 	Context ctx = new InitialContext(); // 리소스를 이름으로 찾아 사용할 수 있도록 하는 api
 	Context ctxWas = (Context) ctx.lookup("java:comp/env"); // tomcat을 먼저 찾음 object Type을 반환
-	DataSource ds = (DataSource)ctxWas.lookup("jdbc/myoracle");// dbcp 찾는다
+	DataSource ds = (DataSource)ctxWas.lookup("jdbc/mysql");// dbcp 찾는다
 	out.println("ds: "+ds+"<br>");
 	Connection con = ds.getConnection();
 	out.println("con: "+con+"<br>");

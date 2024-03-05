@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="/error.jsp" %>
-
+<!-- 로그인 체크 모듈 include (소스를 포함시키자)--------------- -->
+<%@ include file="/login/loginCheckModule.jsp" %>
+<!-- ------------------------------------------------ -->
 <jsp:useBean id="vo" class="bbs.model.BbsVO" scope="page" />
 <%-- BbsVO vo = new BbsVO();와 동일 --%>
 

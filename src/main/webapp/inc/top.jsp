@@ -24,11 +24,12 @@ String ctx = request.getContextPath();
 				<% if(loginId==null){ %>
 					<li><a href="<%=ctx%>/login/login.jsp">로그인</a></li>
 				<%}else{%>
-					<li><a href="#"><%=loginId %>님 로그인 중...</a><li>
+					<li><a href="#"><%=loginId%>님 로그인 중...</a></li>
 					<li><a href="<%=ctx%>/login/logout.jsp">로그아웃</a></li>
 				<%} %>
 				<li><a href="<%=ctx%>/member/join.jsp">회원가입</a></li>
 				<li><a href="<%=ctx%>/board/input.jsp">게시판 글쓰기</a></li>
-				<li><a href="<%=ctx%>/board/list.jsp">게시판 글목록</a></li>
+				<li><a href="<%=ctx%>/board/list2.jsp">게시판 글목록</a></li>
+				<li><a href="<%=ctx%>/login/mypage.jsp">MyPage</a></li>
 			</ul>
 		</header>
